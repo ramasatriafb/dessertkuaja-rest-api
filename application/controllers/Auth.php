@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Auth extends CI_Controller {
-$var batas_gula_darah = 10;
+
 	public function login()
 	{
 		$method = $_SERVER['REQUEST_METHOD'];
@@ -65,6 +65,7 @@ $var batas_gula_darah = 10;
 							'ldl' => $params_for_profile['ldl'],
 							'trigliserida' => $params_for_profile['trigliserida']
 						);
+						$batas_gula_darah = 10;
 						$resp = $this->MyModel->create_user_profile($data);
 					}
 					json_output($respStatus,$resp);
