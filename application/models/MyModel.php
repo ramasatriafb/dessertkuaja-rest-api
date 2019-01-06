@@ -95,26 +95,29 @@ class MyModel extends CI_Model {
 
     public function create_user_gejala($input)
     {
-        $sql1 ="INSERT INTO user_gejala(user_profile_id,gejala)"."VALUE ('".$input['user_profile_id'].",'".$input['kolesterol']."')";
-        $sql2 ="INSERT INTO user_gejala(user_profile_id,gejala)"."VALUE ('".$input['user_profile_id'].",'".$input['hipertensi']."')";
-        $sql3 ="INSERT INTO user_gejala(user_profile_id,gejala)"."VALUE ('".$input['user_profile_id'].",'".$input['asam_urat']."')";
-        
+        $sql1 ="INSERT INTO user_gejala(user_profile_id,gejala)"."VALUE ('".$input['user_profile_id']."','".$input['kolesterol']."')";
+        $sql2 ="INSERT INTO user_gejala(user_profile_id,gejala)"."VALUE ('".$input['user_profile_id']."','".$input['hipertensi']."')";
+        $sql3 ="INSERT INTO user_gejala(user_profile_id,gejala)"."VALUE ('".$input['user_profile_id']."','".$input['asam_urat']."')";
+        $query1 = $this->db->query($sql1);
+        $query2 = $this->db->query($sql2);
+        $query3 = $this->db->query($sql3);
         
         return array('status' => 200,'message' => 'Data has been created.');
     }
 
     public function create_user_gejala2($input)
     {
-        $sql1 ="INSERT INTO user_gejala(user_profile_id,gejala)"."VALUE ('".$input['user_profile_id'].",'".$input['kolesterol']."')";
-        $sql2 ="INSERT INTO user_gejala(user_profile_id,gejala)"."VALUE ('".$input['user_profile_id'].",'".$input['hipertensi']."')";
-       
+        $sql1 ="INSERT INTO user_gejala(user_profile_id,gejala)"."VALUE ('".$input['user_profile_id']."','".$input['kolesterol']."')";
+        $sql2 ="INSERT INTO user_gejala(user_profile_id,gejala)"."VALUE ('".$input['user_profile_id']."','".$input['hipertensi']."')";
+        $query1 = $this->db->query($sql1);
+        $query2 = $this->db->query($sql2);
         
         return array('status' => 200,'message' => 'Data has been created.');
     }
     public function create_user_gejala3($input)
     {
-        $sql1 ="INSERT INTO user_gejala(user_profile_id,gejala)"."VALUE ('".$input['user_profile_id'].",'".$input['kolesterol']."')";
-        
+        $sql1 ="INSERT INTO user_gejala(user_profile_id,gejala)"."VALUE ('".$input['user_profile_id']."','".$input['kolesterol']."')";
+        $query1 = $this->db->query($sql1);
         
         return array('status' => 200,'message' => 'Data has been created.');
     }
