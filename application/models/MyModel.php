@@ -122,9 +122,17 @@ class MyModel extends CI_Model {
         return array('status' => 200,'message' => 'Data has been created.');
     }
 
+    public function resep_all_data()
+    {
+        $users_id  = $this->input->get_request_header('User-ID', TRUE);
+        // $sql = "SELECT distinct b.nama_resep, b.gambar, b.keterangan,b.bahan, b.tata_cara FROM kategori_resep a, resep_dessert b, kategori c, user_profile d, user_gejala e
+        //  WHERE a.resep_id = b.resep_id AND a.kategori_id = c.kategori_id AND d.user_profile_id = e.user_profile_id AND e.gejala = c.kategori and d.user_id = '".$users_id."' ";
+        return $this->db->distinct()->select('b.nama_resep, b.gambar, b.keterangan,b.bahan, b.tata_cara')-> from ('kategori_resep a, resep_dessert b, kategori c, user_profile d, user_gejala e')
+        ->where('a.resep_id = b.resep_id')->where('a.kategori_id = c.kategori_id')->where('d.user_profile_id = e.user_profile_id')->where('d.user_id',$users_id)->get()->result();
+    }
     public function book_all_data()
     {
-        return $this->db->select('id,title,author')->from('books')->order_by('id','desc')->get()->result();
+        return $this->db->distinct()->select('id,title,author')->from('books')->order_by('id','desc')->get()->result();
     }
 
     public function book_detail_data($id)
