@@ -88,7 +88,35 @@ class MyModel extends CI_Model {
     public function create_user_profile($data)
     {
         $this->db->insert('user_profile',$data);
-        return array('status' => 201,'message' => 'Data has been created.');
+        $user_profile_id = $this->db->insert_id();
+        return array('status' => 201,'message' => 'Data has been created.',$user_profile_id);
+    }
+
+
+    public function create_user_gejala($input)
+    {
+        $sql1 ="INSERT INTO user_gejala(user_profile_id,gejala)"."VALUE ('".$input['user_profile_id'].",'".$input['kolesterol']."')";
+        $sql2 ="INSERT INTO user_gejala(user_profile_id,gejala)"."VALUE ('".$input['user_profile_id'].",'".$input['hipertensi']."')";
+        $sql3 ="INSERT INTO user_gejala(user_profile_id,gejala)"."VALUE ('".$input['user_profile_id'].",'".$input['asam_urat']."')";
+        
+        
+        return array('status' => 200,'message' => 'Data has been created.');
+    }
+
+    public function create_user_gejala2($input)
+    {
+        $sql1 ="INSERT INTO user_gejala(user_profile_id,gejala)"."VALUE ('".$input['user_profile_id'].",'".$input['kolesterol']."')";
+        $sql2 ="INSERT INTO user_gejala(user_profile_id,gejala)"."VALUE ('".$input['user_profile_id'].",'".$input['hipertensi']."')";
+       
+        
+        return array('status' => 200,'message' => 'Data has been created.');
+    }
+    public function create_user_gejala3($input)
+    {
+        $sql1 ="INSERT INTO user_gejala(user_profile_id,gejala)"."VALUE ('".$input['user_profile_id'].",'".$input['kolesterol']."')";
+        
+        
+        return array('status' => 200,'message' => 'Data has been created.');
     }
 
     public function book_all_data()

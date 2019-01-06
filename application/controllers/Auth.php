@@ -67,30 +67,36 @@ class Auth extends CI_Controller {
 							'trigliserida' => $params_for_profile['trigliserida']
 						);
 
+						
+						$resp = $this->MyModel->create_user_profile($data);
 						//Cek Kolesterol dari LDL dan Trigliserida
-						if ($data['diabet'] == "Yes")
+						if ($data['diabet'] == "Ya")
 						{
-							if ($data['ldl'] > 100 || $data['trigliserida'] > 150 || $data['gula_darah' > 199 ]){
-								$user_gejala = "Kolesterol";
+							if ($data['ldl'] > 100 || $data['trigliserida'] > 150 || $data['gula_darah'] > 199 ){
+								$kolesterol = "Kolesterol";
+								$hipertensi = "Hipertensi";
 							}else{
-								$user_gejala = " Normal";
+								$kolesterol = "Normal";
+								$hipertensi = "Normal";
 							}
 
 						} else
 						{
-							if($data['ldl'] > 130 ||  $data['trigliserida'] > 200 || $data['gula_darah' > 100 ]){
-								$user_gejala = "Kolesterol";
+							if($data['ldl'] > 130 ||  $data['trigliserida'] > 200 || $data['gula_darah'] > 100 ){
+								$kolesterol = "Kolesterol";
+								$hipertensi = "Hipertensi";
 							}else{
-								$user_gejala = "Normal";
+								$kolesterol = "Normal";
+								$hipertensi = "Normal";
 							}
 						}
 
 						//Cek Kolesterol dari HDL Saja
 
 						if ($data['hdl'] < 60 ) {
-							$user_gejala = "Kolesterol";
+							$kolesterol = "Kolesterol";
 						}else{
-							$user_gejala = " Normal";
+							$kolesterol = " Normal";
 						}
 
 						// Cek Asam Urat
@@ -105,54 +111,83 @@ class Auth extends CI_Controller {
 							case $umur < 18:
 								if ($data['jenis_kelamin'] == 'Pria' ){
 									if($data['asam_urat'] > 5.6){
-										$user_gejala = "Asam Urat";
+										$asam_urat = "Asam Urat";
 									}else{
-										$user_gejala = "Normal";
+										$asam_urat = "Normal";
 									}
 								}else{
 									if ($data['asam_urat']  > 4.1){
-										$user_gejala = "Asam Urat";
+										$asam_urat = "Asam Urat";
 									}else{
-										$user_gejala = "Normal";
+										$asam_urat = "Normal";
 									}
 								}
 								break;
 								case $umur > 17 && $umur < 41 :
 								if ($data['jenis_kelamin'] == 'Pria' ){
 									if($data['asam_urat'] > 7.6){
-										$user_gejala = "Asam Urat";
+										$asam_urat = "Asam Urat";
 									}else{
-										$user_gejala = "Normal";
+										$asam_urat = "Normal";
 									}
 								}else{
 									if ($data['asam_urat']  > 6.6){
-										$user_gejala = "Asam Urat";
+										$asam_urat = "Asam Urat";
 									}else{
-										$user_gejala = "Normal";
+										$asam_urat = "Normal";
 									}
 								}
 								break;
 								case $umur > 40:
 								if ($data['jenis_kelamin'] == 'Pria' ){
 									if($data['asam_urat'] > 8.6){
-										$user_gejala = "Asam Urat";
+										$asam_urat = "Asam Urat";
 									}else{
-										$user_gejala = "Normal";
+										$asam_urat = "Normal";
 									}
 								}else{
 									if ($data['asam_urat']  > 8.1){
-										$user_gejala = "Asam Urat";
+										$asam_urat = "Asam Urat";
 									}else{
-										$user_gejala = "Normal";
+										$asam_urat = "Normal";
 									}
 								}
 								break;
 						}
-						$resp = $this->MyModel->create_user_profile($data);
-					}
+						$user_profile_id = $resp['user_profile_id'];
+						if ($kolesterol == 'Kolesterol' && $hipertensi == "Hipertensi" && $asam_urat == "Asam Urat"){
+							$input = array(
+								'user_profile_id' => $user_profile_id,
+								'kolesterol' => $kolesterol,
+								'hipertensi' => $hipertensi,
+								'asam_urat' => $asam_urat
+							);
+							$this->MyModel->create_user_gejala($input);
+						}else if ($kolesterol == 'Kolesterol' && $hipertensi == "Hipertensi" && $asam_urat == "Normal"){
+							$input = array(
+								'user_profile_id' => $user_profile_id,
+								'kolesterol' => $kolesterol,
+								'hipertensi' => $hipertensi
+							);
+							$this->MyModel->create_user_gejala2($input);
+						}else if ($kolesterol == 'Kolesterol' && $hipertensi == "Normal" && $asam_urat == "Normal"){
+							$input = array(
+								'user_profile_id' => $user_profile_id,
+								'kolesterol' => $kolesterol
+							);
+							$this->MyModel->create_user_gejala3($input);
+						}else{
+							$input = array(
+								'user_profile_id' => $user_profile_id,
+								'kolesterol' => $kolesterol
+							);
+							$this->MyModel->create_user_gejala3($input);
+						}
+					
 					json_output($respStatus,$resp);
 		        }
 			
+			}
 		}
 	}
 	
