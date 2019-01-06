@@ -55,6 +55,7 @@ $route['auth/login']['post']           = 'auth/login';  // untuk login
 $route['auth/logout']['post']          = 'auth/logout'; // untuk logout
 $route['auth/signup']['post']          = 'auth/signup'; // untuk signup
 $route['resep']['get']                 = 'resep'; // get data resep
+$route['resep/detail/(:num)']['get']    = 'resep/detail/$1'; // get detail data resep
 $route['book']['get']          	       = 'book';
 $route['book/detail/(:num)']['get']    = 'book/detail/$1';
 $route['book/create']['post']   	   = 'book/create';

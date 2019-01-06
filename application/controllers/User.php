@@ -1,9 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Resep extends CI_Controller {
+class User extends CI_Controller {
 
-    public function __construct()
+	public function __construct()
     {
         parent::__construct();
         /*
@@ -24,7 +24,7 @@ class Resep extends CI_Controller {
 			if($check_auth_client == true){
 		        $response = $this->MyModel->auth();
 		        if($response['status'] == 200){
-		        	$resp = $this->MyModel->resep_all_data();
+		        	$resp = $this->MyModel->book_all_data();
 	    			json_output($response['status'],$resp);
 		        }
 			}
@@ -41,7 +41,7 @@ class Resep extends CI_Controller {
 			if($check_auth_client == true){
 		        $response = $this->MyModel->auth();
 		        if($response['status'] == 200){
-		        	$resp = $this->MyModel->resep_detail_data($id);
+		        	$resp = $this->MyModel->user_detail_data($id);
 					json_output($response['status'],$resp);
 		        }
 			}
