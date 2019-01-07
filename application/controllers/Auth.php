@@ -69,7 +69,7 @@ class Auth extends CI_Controller {
 
 						
 						$resp = $this->MyModel->create_user_profile($data);
-						var_dump($resp);
+						//var_dump($resp);
 						//Cek Kolesterol dari LDL dan Trigliserida
 						if ($data['diabet'] == "Ya")
 						{

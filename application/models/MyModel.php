@@ -136,6 +136,36 @@ class MyModel extends CI_Model {
         return $this->db->select('resep_id,nama_resep, gambar, keterangan,bahan, tata_cara')->from('resep_dessert')->where('resep_id',$id)->order_by('resep_id','desc')->get()->row();
     }
 
+    public function user_detail_data($id)
+    {
+        $users_id  = $this->input->get_request_header('User-ID', TRUE);
+        return $this->db->select('a.username,a.password, b.nama, b.jenis_kelamin,b.tgl_lahir, b.diabet, b.asam_urat, b.gula_darah,b.hdl, b.ldl,b.trigliserida')-> from ('user a')
+        ->join('user_profile b', 'a.user_id = b.user_id')->where('a.user_id',$users_id)->get()->result();
+    }
+
+    public function user_update_data($id,$data)
+    {
+        $this->db->where('user_id', $id);
+        $this->db->update('user_profile', $data);
+        
+        return array('status' => 200,'message' => 'Data has been updated.');
+    }
+
+    public function get_user_profile_id()
+    {
+        $users_id  = $this->input->get_request_header('User-ID', TRUE);
+        return $this->db->select('b.user_profile')-> from ('user a')
+        ->join('user_profile b', 'a.user_id = b.user_id')->where('a.user_id',$users_id)->get()->result();
+    }
+
+    public function update_user_gejala_byid($user_profile_id)
+    {
+        $users_id  = $this->input->get_request_header('User-ID', TRUE);
+        $this->db->where('user_profile_id', $id);
+        return $this->db->delete('user_gejala');
+    }
+
+
     public function book_all_data()
     {
         return $this->db->distinct()->select('id,title,author')->from('books')->order_by('id','desc')->get()->result();
