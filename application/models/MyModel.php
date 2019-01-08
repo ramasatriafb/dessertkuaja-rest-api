@@ -154,14 +154,14 @@ class MyModel extends CI_Model {
     public function get_user_profile_id()
     {
         $users_id  = $this->input->get_request_header('User-ID', TRUE);
-        return $this->db->select('b.user_profile')-> from ('user a')
-        ->join('user_profile b', 'a.user_id = b.user_id')->where('a.user_id',$users_id)->get()->result();
+        return $this->db->select('b.user_profile_id')-> from ('user a')
+        ->join('user_profile b', 'a.user_id = b.user_id')->where('a.user_id',$users_id)->get()->row('user_profile_id');;
     }
 
     public function update_user_gejala_byid($user_profile_id)
     {
         $users_id  = $this->input->get_request_header('User-ID', TRUE);
-        $this->db->where('user_profile_id', $id);
+        $this->db->where('user_profile_id', $user_profile_id);
         return $this->db->delete('user_gejala');
     }
 

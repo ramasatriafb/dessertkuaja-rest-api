@@ -85,7 +85,7 @@ class User extends CI_Controller {
 		        if($response['status'] == 200){
 					$params_for_profile = json_decode(file_get_contents('php://input'), TRUE);
 					//$params['updated_at'] = date('Y-m-d H:i:s');
-					if ($params_for_profile['diabet'] == "" || $params_for_profile['asam_urat'] == "" || $params_for_profile['gula_darah'] == "" || $params_for_profile['hdl'] == "" 
+					if ($params_for_profile['tgl_lahir'] == "" || $params_for_profile['jenis_kelamin'] == "" || $params_for_profile['diabet'] == "" || $params_for_profile['asam_urat'] == "" || $params_for_profile['gula_darah'] == "" || $params_for_profile['hdl'] == "" 
 					|| $params_for_profile['ldl'] == "" || $params_for_profile['trigliserida'] == "") {
 						$respStatus = 400;
 						$resp = array('status' => 400,'message' =>  'Data Kesehatan Tidak Boleh Kosong');
@@ -131,7 +131,7 @@ class User extends CI_Controller {
 						}
 
 						// Cek Asam Urat
-						$tgl_lhr = $data['tgl_lahir'];
+						$tgl_lhr = $params_for_profile['tgl_lahir'];
 						$tgl_lhr = explode("/", $tgl_lhr);
 
 						$umur = (date("md", date("U", mktime(0, 0, 0, $tgl_lhr[0], $tgl_lhr[1], $tgl_lhr[2]))) > date("md")
@@ -140,7 +140,7 @@ class User extends CI_Controller {
 					 // echo "Age is:" . $umur;
 						switch ($umur) {
 							case $umur < 18:
-								if ($data['jenis_kelamin'] == 'Pria' ){
+								if ($params_for_profile['jenis_kelamin'] == 'Pria' ){
 									if($data['asam_urat'] > 5.6){
 										$asam_urat = "Asam Urat";
 									}else{
@@ -155,7 +155,7 @@ class User extends CI_Controller {
 								}
 								break;
 								case $umur > 17 && $umur < 41 :
-								if ($data['jenis_kelamin'] == 'Pria' ){
+								if ($params_for_profile['jenis_kelamin'] == 'Pria' ){
 									if($data['asam_urat'] > 7.6){
 										$asam_urat = "Asam Urat";
 									}else{
@@ -170,7 +170,7 @@ class User extends CI_Controller {
 								}
 								break;
 								case $umur > 40:
-								if ($data['jenis_kelamin'] == 'Pria' ){
+								if ($params_for_profile['jenis_kelamin'] == 'Pria' ){
 									if($data['asam_urat'] > 8.6){
 										$asam_urat = "Asam Urat";
 									}else{
@@ -186,6 +186,7 @@ class User extends CI_Controller {
 								break;
 						}
 						$user_profile_id = $this->MyModel->get_user_profile_id();
+						// var_dump($user_profile_id);die();
 						$this->MyModel->update_user_gejala_byid($user_profile_id);
 						if ($kolesterol == 'Kolesterol' && $hipertensi == "Hipertensi" && $asam_urat == "Asam Urat"){
 							$input = array(
@@ -218,7 +219,7 @@ class User extends CI_Controller {
 					json_output($respStatus,$resp);
 		        }
 			}
-		}
+		}}
 	}
 
 	public function delete($id)
