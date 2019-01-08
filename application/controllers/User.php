@@ -101,6 +101,7 @@ class User extends CI_Controller {
 					
 						$resp = $this->MyModel->user_update_data($id,$data);
 						
+						// CEK KOLESTEROL DARI DIABET
 						if ($data['diabet'] == "Ya")
 						{
 							if ($data['ldl'] > 100 || $data['trigliserida'] > 150 || $data['gula_darah'] > 199 ){
@@ -185,6 +186,10 @@ class User extends CI_Controller {
 								}
 								break;
 						}
+						// SETELAH PROSES DI ATAS LALU 
+						/// HASIL KOLESTEROL , HIPERTENSI dan ASAM URAT disimpan tabel user gejala
+
+						
 						$user_profile_id = $this->MyModel->get_user_profile_id();
 						// var_dump($user_profile_id);die();
 						$this->MyModel->update_user_gejala_byid($user_profile_id);
