@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Resep extends CI_Controller {
+class Kategori extends CI_Controller {
 
 	public function __construct()
     {
@@ -24,7 +24,7 @@ class Resep extends CI_Controller {
 			if($check_auth_client == true){
 		        $response = $this->MyModel->auth();
 		        if($response['status'] == 200){
-		        	$resp = $this->MyModel->resep_all_data();
+		        	$resp = $this->MyModel->kategori_all_data();
 	    			json_output($response['status'],$resp);
 		        }
 			}
@@ -41,7 +41,7 @@ class Resep extends CI_Controller {
 			if($check_auth_client == true){
 		        $response = $this->MyModel->auth();
 		        if($response['status'] == 200){
-		        	$resp = $this->MyModel->resep_detail_data($id);
+		        	$resp = $this->MyModel->kategori_detail_data($id);
 					json_output($response['status'],$resp);
 		        }
 			}
@@ -60,12 +60,11 @@ class Resep extends CI_Controller {
 		        $respStatus = $response['status'];
 		        if($response['status'] == 200){
 					$params = json_decode(file_get_contents('php://input'), TRUE);
-					if ($params['nama_resep'] == "" || $params['gambar'] == ""
-					|| $params['keterangan'] == ""|| $params['bahan'] == ""|| $params['tata_cara'] == "") {
+					if ($params['resep_id'] == "" || $params['kategori_id'] == "") {
 						$respStatus = 400;
-						$resp = array('status' => 400,'message' =>  'Data resep tidak boleh ada yang kosong !');
+						$resp = array('status' => 400,'message' =>  'Data Tidak Boleh Kosong !');
 					} else {
-		        		$resp = $this->MyModel->resep_create_data($params);
+		        		$resp = $this->MyModel->kategori_create_data($params);
 					}
 					json_output($respStatus,$resp);
 		        }
@@ -86,12 +85,11 @@ class Resep extends CI_Controller {
 		        if($response['status'] == 200){
 					$params = json_decode(file_get_contents('php://input'), TRUE);
 					$params['updated_at'] = date('Y-m-d H:i:s');
-					if ($params['nama_resep'] == "" || $params['gambar'] == ""
-					|| $params['keterangan'] == ""|| $params['bahan'] == ""|| $params['tata_cara'] == "") {
+					if ($params['resep_id'] == "" || $params['kategori_id'] == "") {
 						$respStatus = 400;
-						$resp = array('status' => 400,'message' =>  'Data resep tidak boleh ada yang kosong !');
-					} else {
-		        		$resp = $this->MyModel->resep_update_data($id,$params);
+						$resp = array('status' => 400,'message' =>  'Data Tidak Boleh Kosong !');
+					}  else {
+		        		$resp = $this->MyModel->kategori_update_data($id,$params);
 					}
 					json_output($respStatus,$resp);
 		        }
@@ -109,7 +107,7 @@ class Resep extends CI_Controller {
 			if($check_auth_client == true){
 		        $response = $this->MyModel->auth();
 		        if($response['status'] == 200){
-		        	$resp = $this->MyModel->resep_delete_data($id);
+		        	$resp = $this->MyModel->kategori_delete_data($id);
 					json_output($response['status'],$resp);
 		        }
 			}
