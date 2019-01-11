@@ -22,9 +22,11 @@ class Resep extends CI_Controller {
 		} else {
 			$check_auth_client = $this->MyModel->check_auth_client();
 			if($check_auth_client == true){
-		        $response = $this->MyModel->auth();
+				$response = $this->MyModel->auth();
+				
 		        if($response['status'] == 200){
-		        	$resp = $this->MyModel->resep_all_data();
+					$resp = $this->MyModel->resep_all_data($users_id);
+					// var_dump($resp);die();
 	    			json_output($response['status'],$resp);
 		        }
 			}
