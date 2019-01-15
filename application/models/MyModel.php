@@ -122,7 +122,7 @@ class MyModel extends CI_Model {
         return array('status' => 200,'message' => 'Data has been created.');
     }
 
-    public function resep_all_data($users_id)
+    public function resep_all_data()
     {
         $users_id  = $this->input->get_request_header('User-ID', TRUE);
         // $sql = "SELECT distinct b.nama_resep, b.gambar, b.keterangan,b.bahan, b.tata_cara FROM kategori_resep a, resep_dessert b, kategori c, user_profile d, user_gejala e

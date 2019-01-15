@@ -25,7 +25,7 @@ class Resep extends CI_Controller {
 				$response = $this->MyModel->auth();
 				
 		        if($response['status'] == 200){
-					$resp = $this->MyModel->resep_all_data($users_id);
+					$resp = $this->MyModel->resep_all_data();
 					// var_dump($resp);die();
 	    			json_output($response['status'],$resp);
 		        }

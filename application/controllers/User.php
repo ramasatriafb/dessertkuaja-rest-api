@@ -47,7 +47,7 @@ class User extends CI_Controller {
 			}
 		}
 	}
-
+//https://ramasatriafb.000webhostapp.com/
 	public function create()
 	{
 		$method = $_SERVER['REQUEST_METHOD'];
